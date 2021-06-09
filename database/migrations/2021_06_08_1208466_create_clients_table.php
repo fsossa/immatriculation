@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('prenoms');
             $table->date('date_naissance');
             $table->string('lieu_naissance');
-            $table->unique(['nom', 'prenoms', 'date_naissance', 'lieu_naissance']);
+            $table->unique(['nom', 'prenoms', 'date_naissance', 'lieu_naissance'],"unique_client_nom_prenom_date_lieu_naiss");
             $table->string('adresse');
             $table->integer('phone')->unique();
             $table->string('email')->unique();
