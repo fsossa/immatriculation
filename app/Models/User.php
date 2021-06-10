@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    \Iseed::generateSeed('users');
+    
 
     /**
      * The attributes that are mass assignable.

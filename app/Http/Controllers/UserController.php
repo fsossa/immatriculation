@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -13,7 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('index', compact('users'));
     }
 
     /**
@@ -23,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -34,7 +37,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //var_dump("expression"); exit();
+        $validatedData = $request->validate([
+            'noms' => 'required|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|min:8|max:8',
+        ]);
+        $validatedData['password'] = password_hash(123456, PASSWORD_DEFAULT) ; 
+        $validatedData['departements_id'] = random_int(1, 12);
+        $validatedData['roles_id'] = 2;
+        //var_dump($validatedData); exit();
+
+        $user = User::create($validatedData);
+
+        return redirect('/users')->with('success', 'Agent créer avec succèss');
     }
 
     /**
