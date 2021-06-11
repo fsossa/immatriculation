@@ -16,7 +16,7 @@ class ModelesTableSeeder extends Seeder
     {
         
 
-        \DB::table('modeles')->delete();
+        // \DB::table('modeles')->delete();
         
         
         
