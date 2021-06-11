@@ -128,10 +128,10 @@
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-            <li class="active"><a href="index.html"> <i class="icon-home"></i>Accueil </a></li>
-            <li><a href="tables.html"> <i class="fa fa-car"></i>Véhicules </a></li>
-            <li><a href="charts.html"> <i class="fa fa-users"></i>Clients </a></li>
-            <li><a href="forms.html"> <i class="fa fa-gears"></i>Modeles </a></li>
+            <li class="active"><a href="#"> <i class="icon-home"></i>Accueil </a></li>
+            <li><a href="#"> <i class="fa fa-car"></i>Véhicules </a></li>
+            <li><a href="#"> <i class="fa fa-users"></i>Clients </a></li>
+            <li><a href="#"> <i class="fa fa-gears"></i>Modeles </a></li>
             <!--li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
               <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li><a href="#">Page</a></li>
@@ -139,7 +139,7 @@
                 <li><a href="#">Page</a></li>
               </ul>
             </li-->
-            <li><a href="login.html"> <i class="fa fa-star"></i>Agents </a></li>
+            <li><a href="{{ route('users.index') }}"> <i class="fa fa-star"></i>Agents </a></li>
           </ul><!--span class="heading">Extras</span>
           <ul class="list-unstyled">
             <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>

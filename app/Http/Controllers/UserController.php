@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('index', compact('users'));
+        return view('user_index', compact('users'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('user_create');
     }
 
     /**
@@ -72,7 +72,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('user_edit', compact('user'));
     }
 
     /**
@@ -84,7 +86,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //var_dump("expression"); exit();
+        $validatedData = $request->validate([
+            'noms' => 'required|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|min:8|max:8',
+        ]);
+
+        user::whereId($id)->update($validatedData);
+
+        return redirect('/users')->with('success', 'Agent mise à jour avec succèss');
+
     }
 
     /**
@@ -95,6 +107,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('/users')->with('success', 'Agent supprimer avec succèss');
     }
 }
