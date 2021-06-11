@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Vehicule;
 
-class UserController extends Controller
+class VehiculeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $vehicules = Vehicule::all();
 
-        return view('user_index', compact('users'));
+        return view('vehicule_index', compact('vehicules'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user_create');
+        return view('vehicule_create');
     }
 
     /**
@@ -39,18 +39,20 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|min:8|max:8',
+            'nom' => 'required|max:255',
+            'num_chassis' => 'required|max:255',
+            'plaque' => 'required',
+            'annee_sortie' => 'required|min:4|max:4',
         ]);
-        $validatedData['password'] = password_hash(123456, PASSWORD_DEFAULT) ; 
-        $validatedData['departements_id'] = random_int(1, 12);
-        $validatedData['roles_id'] = 2;
+        $validatedData['clients_id'] = random_int(1, 2);
+        $validatedData['modeles_id'] = random_int(1, 3);
+        $validatedData['statuses_id'] = random_int(1, 3);
+        $validatedData['users_id'] = 1;
         //var_dump($validatedData); exit();
 
-        $user = User::create($validatedData);
+        $vehicule = Vehicule::create($validatedData);
 
-        return redirect('/users')->with('success', 'Agent créer avec succèss');
+        return redirect('/vehicules')->with('success', 'Immatriculation effectuée avec succèss');
     }
 
     /**
@@ -72,9 +74,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $vehicule = Vehicule::findOrFail($id);
 
-        return view('user_edit', compact('user'));
+        return view('vehicule_edit', compact('vehicule'));
     }
 
     /**
@@ -88,14 +90,15 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|min:8|max:8',
+            'nom' => 'required|max:255',
+            'num_chassis' => 'required|max:255',
+            'plaque' => 'required',
+            'annee_sortie' => 'required|min:4|max:4',
         ]);
 
-        User::whereId($id)->update($validatedData);
+        Vehicule::whereId($id)->update($validatedData);
 
-        return redirect('/users')->with('success', 'Agent mise à jour avec succèss');
+        return redirect('/vehicules')->with('success', 'Immatriculation mise à jour avec succèss');
 
     }
 
@@ -108,9 +111,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //var_dump("expression"); exit();
-        $user = User::findOrFail($id);
-        $user->delete();
+        $vehicule = Vehicule::findOrFail($id);
+        $vehicule->delete();
 
-        return redirect('/users')->with('success', 'Agent supprimer avec succèss');
+        return redirect('/vehicules')->with('success', 'Immatriculation supprimée avec succèss');
     }
 }

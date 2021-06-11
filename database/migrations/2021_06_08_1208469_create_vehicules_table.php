@@ -17,6 +17,7 @@ class CreateVehiculesTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('num_chassis');
+            $table->string('plaque')->unique();
             $table->unsignedBigInteger('clients_id');
             $table->foreign('clients_id')->references('id')->on('clients');
             $table->unsignedBigInteger('users_id');
