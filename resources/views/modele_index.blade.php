@@ -8,10 +8,10 @@
 
                         <header class="page-header">
                             <div class="container-fluid">
-                                <h2 class="no-margin-bottom">Agent</h2>
+                                <h2 class="no-margin-bottom">Modele</h2>
                             </div>
                             <div style="margin-left: 80%; ">
-                                <a href="{{ route('users.create')}}" class="btn btn-outline-primary">Ajouter un agent</a>
+                                <a href="{{ route('modeles.create')}}" class="btn btn-outline-primary">Ajouter un modele</a>
                             </div>
                         </header>
                         @if(session()->get('success'))
@@ -32,7 +32,7 @@
                                             </div>
 
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Liste des agents</h3>
+                                                <h3 class="h4">Liste des modeles</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -40,22 +40,20 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Noms</th>
-                                                                <th>Téléphone</th>
-                                                                <th>Email</th>
+                                                                <th>Marque</th>
+                                                                <th>Model</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($users as $user)
+                                                            @foreach($modeles as $modele)
                                                                 <tr>
-                                                                    <td>{{$user->id}}</td>
-                                                                    <td>{{$user->noms}}</td>
-                                                                    <td>{{$user->phone}}</td>
-                                                                    <td>{{$user->email}}</td>
+                                                                    <td>{{$modele->id}}</td>
+                                                                    <td>{{$modele->marque}}</td>
+                                                                    <td>{{$modele->model}}</td>
                                                                     <td><div class="row col-lg-12">
-                                                                        <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('users.destroy', $user->id)}}" method="post" style="">
+                                                                        <a href="{{ route('modeles.edit', $modele->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
+                                                                        <form action="{{ route('modeles.destroy', $modele->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
                                                                           <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
