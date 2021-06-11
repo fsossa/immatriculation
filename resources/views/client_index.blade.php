@@ -8,10 +8,10 @@
 
                         <header class="page-header">
                             <div class="container-fluid">
-                                <h2 class="no-margin-bottom">Modele</h2>
+                                <h2 class="no-margin-bottom">Client</h2>
                             </div>
                             <div style="margin-left: 80%; ">
-                                <a href="{{ route('modeles.create')}}" class="btn btn-outline-primary">Ajouter un modele</a>
+                                <a href="{{ route('clients.create')}}" class="btn btn-outline-primary">Ajouter un client</a>
                             </div>
                         </header>
                         @if(session()->get('success'))
@@ -32,7 +32,7 @@
                                             </div>
 
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Liste des modeles</h3>
+                                                <h3 class="h4">Liste des clients</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -40,20 +40,26 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Marque</th>
-                                                                <th>Model</th>
+                                                                <th>Noms</th>
+                                                                <th>Naissance</th>
+                                                                <th>Téléphone</th>
+                                                                <th>Email</th>
+                                                                <th>Carte d'identité</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($modeles as $val)
+                                                            @foreach($clients as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td>{{$val->marque}}</td>
-                                                                    <td>{{$val->model}}</td>
+                                                                    <td>{{$val->nom.' '.$val->prenoms}}</td>
+                                                                    <td>{{$val->date_naissance.'/'.$val->lieu_naissance}}</td>
+                                                                    <td>{{$val->phone}}</td>
+                                                                    <td>{{$val->email}}</td>
+                                                                    <td>{{$val->num_ci}}</td>
                                                                     <td><div class="row col-lg-12">
-                                                                        <a href="{{ route('modeles.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('modeles.destroy', $val->id)}}" method="post" style="">
+                                                                        <a href="{{ route('clients.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
+                                                                        <form action="{{ route('clients.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
                                                                           <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>

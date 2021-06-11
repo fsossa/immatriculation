@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Client;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $clients = Client::all();
 
-        return view('user_index', compact('users'));
+        return view('client_index', compact('clients'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user_create');
+        return view('client_create');
     }
 
     /**
@@ -39,18 +39,22 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
+            'nom' => 'required|max:255',
+            'prenoms' => 'required|max:255',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|max:255',
+            'adresse' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
+            'num_ci' => 'required|max:255',
         ]);
-        $validatedData['password'] = password_hash(123456, PASSWORD_DEFAULT) ; 
         $validatedData['departements_id'] = random_int(1, 12);
-        $validatedData['roles_id'] = 2;
+        $validatedData['users_id'] = 1;
         //var_dump($validatedData); exit();
 
-        $user = User::create($validatedData);
+        $client = Client::create($validatedData);
 
-        return redirect('/users')->with('success', 'Agent créer avec succèss');
+        return redirect('/clients')->with('success', 'Client créer avec succèss');
     }
 
     /**
@@ -72,9 +76,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $client = Client::findOrFail($id);
 
-        return view('user_edit', compact('user'));
+        return view('client_edit', compact('client'));
     }
 
     /**
@@ -88,14 +92,19 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
+            'nom' => 'required|max:255',
+            'prenoms' => 'required|max:255',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|max:255',
+            'adresse' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
+            'num_ci' => 'required|max:255',
         ]);
 
-        User::whereId($id)->update($validatedData);
+        Client::whereId($id)->update($validatedData);
 
-        return redirect('/users')->with('success', 'Agent mise à jour avec succèss');
+        return redirect('/clients')->with('success', 'Client mise à jour avec succèss');
 
     }
 
@@ -107,10 +116,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        var_dump("expression"); exit();
-        $user = User::findOrFail($id);
-        $user->delete();
+        //var_dump("expression"); exit();
+        $client = Client::findOrFail($id);
+        $client->delete();
 
-        return redirect('/users')->with('success', 'Agent supprimer avec succèss');
+        return redirect('/clients')->with('success', 'Client supprimer avec succèss');
     }
 }

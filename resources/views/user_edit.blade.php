@@ -34,7 +34,7 @@
 						                      	</div>
 						                    </div>
 						                    <div class="card-header d-flex align-items-center">
-						                      	<h3 class="h4">Modifier un agent</h3>
+						                      	<h3 class="h4">Modifier l'agent</h3>
 						                    </div>
 					                    	<div class="card-body">
 					                    	

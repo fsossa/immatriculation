@@ -47,15 +47,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($users as $user)
+                                                            @foreach($users as $val)
                                                                 <tr>
-                                                                    <td>{{$user->id}}</td>
-                                                                    <td>{{$user->noms}}</td>
-                                                                    <td>{{$user->phone}}</td>
-                                                                    <td>{{$user->email}}</td>
+                                                                    <td>{{$val->id}}</td>
+                                                                    <td>{{$val->noms}}</td>
+                                                                    <td>{{$val->phone}}</td>
+                                                                    <td>{{$val->email}}</td>
                                                                     <td><div class="row col-lg-12">
-                                                                        <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('users.destroy', $user->id)}}" method="post" style="">
+                                                                        <a href="{{ route('users.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
+                                                                        <form action="{{ route('users.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
                                                                           <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
