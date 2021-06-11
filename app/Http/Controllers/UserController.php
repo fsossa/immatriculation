@@ -107,6 +107,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        var_dump("expression"); exit();
         $user = User::findOrFail($id);
         $user->delete();
 
