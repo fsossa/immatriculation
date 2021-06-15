@@ -42,8 +42,9 @@ class UserController extends Controller
             'noms' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
+            'password' => Hash::make($request['password']),
         ]);
-        $validatedData['password'] = password_hash(123456, PASSWORD_DEFAULT) ; 
+        //$validatedData['password'] = password_hash(123456, PASSWORD_DEFAULT) ; 
         $validatedData['departements_id'] = random_int(1, 12);
         $validatedData['roles_id'] = 2;
         //var_dump($validatedData); exit();

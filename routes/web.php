@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VehiculeController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,13 @@ use App\Http\Controllers\VehiculeController;
 |
 */
 
-Route::get('/',[VehiculeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::resource('users', 'UserController');
 Route::resource('modeles', 'ModeleController');
 Route::resource('clients', 'ClientController');
 Route::resource('vehicules', 'VehiculeController');
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

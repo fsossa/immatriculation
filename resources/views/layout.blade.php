@@ -113,7 +113,19 @@
 				                  	</ul>
 				                </li>
 				                <!-- Logout    -->
-				                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Déconnexion</span><i class="fa fa-sign-out"></i></a></li>
+				                <li class="nav-item">
+				                	<div class="" >
+	                                    <a class="nofollow" href="{{ route('logout') }}" class="nav-link logout"
+	                                       onclick="event.preventDefault();
+	                                                     document.getElementById('logout-form').submit();">
+	                                        <span class="d-none d-sm-inline">Déconnexion</span><i class="fa fa-sign-out"></i>
+	                                    </a>
+
+	                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+	                                        @csrf
+	                                    </form>
+	                                </div><!--a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Déconnexion</span><i class="fa fa-sign-out"></i></a-->
+	                            </li>
 			              	</ul>
 			            </div>
 		          	</div>
@@ -126,7 +138,7 @@
 		          	<div class="sidebar-header d-flex align-items-center">
 			            <div class="avatar"><img src="{{asset('img/avatar-1.jpg')}}" alt="..." class="img-fluid rounded-circle"></div>
 			            <div class="title">
-		              		<h1 class="h4">Fulbert</h1>
+		              		<h1 class="h4">{{ Auth::user()->name }}</h1>
 		              		<p>Administrateur</p>
 		            	</div>
 		          	</div>
