@@ -45,7 +45,7 @@
 							                        <div class="form-group row">
 							                          	<label class="col-sm-3 form-control-label">Noms</label>
 							                          	<div class="col-sm-9">
-							                            	<input type="text" name="noms" placeholder="Noms et prénoms" class="form-control form-control-success" value="{{ $user->noms }}" ><!--small class="form-text">Example help text that remains unchanged.</small-->
+							                            	<input type="text" name="name" placeholder="Noms et prénoms" class="form-control form-control-success" value="{{ $user->noms }}" ><!--small class="form-text">Example help text that remains unchanged.</small-->
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">

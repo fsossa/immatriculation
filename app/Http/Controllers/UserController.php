@@ -7,6 +7,8 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +41,7 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
         ]);
@@ -88,7 +90,7 @@ class UserController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'noms' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
         ]);
@@ -114,3 +116,5 @@ class UserController extends Controller
         return redirect('/users')->with('success', 'Agent supprimer avec succèss');
     }
 }
+
+

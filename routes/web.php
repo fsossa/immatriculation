@@ -19,3 +19,7 @@ Route::resource('users', 'UserController');
 Route::resource('modeles', 'ModeleController');
 Route::resource('clients', 'ClientController');
 Route::resource('vehicules', 'VehiculeController');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
