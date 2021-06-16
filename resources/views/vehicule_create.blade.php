@@ -66,6 +66,36 @@
 							                            	<input type="text" name="plaque" placeholder="" class="form-control form-control-success"><!--small class="form-text">Example help text that remains unchanged.</small-->
 							                          	</div>
 							                        </div>
+							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Propriétaire</label>
+							                          	<div class="col-sm-9">
+							                            	<select name="clients_id" class="form-control mb-3">
+							                            		@foreach($clients as $val)
+								                              	<option value="{{ $val->id }}" >{{ $val->nom.' '.$val->prenoms}} </option>
+								                              	@endforeach
+                            								</select>
+							                          	</div>
+							                        </div>
+							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Model</label>
+							                          	<div class="col-sm-9">
+							                            	<select name="modeles_id" class="form-control mb-3">
+							                            		@foreach($modeles as $val)
+								                              	<option value="{{ $val->id }}" >{{ $val->marque.' '.$val->model}} </option>
+								                              	@endforeach
+                            								</select>
+							                          	</div>
+							                        </div>
+							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Etape</label>
+							                          	<div class="col-sm-9">
+							                            	<select name="statuses_id" class="form-control mb-3">
+							                            		@foreach($statuses as $val)
+								                              	<option value="{{ $val->id }}" >{{ $val->titre}} </option>
+								                              	@endforeach
+                            								</select>
+							                          	</div>
+							                        </div>
 							                        <div class="form-group row">       
 							                          	<div class="col-sm-9 offset-sm-3">
 							                            	<input type="submit" value="Ajouter" class="btn btn-primary">

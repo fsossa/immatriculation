@@ -67,6 +67,16 @@
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Département</label>
+							                          	<div class="col-sm-9">
+							                            	<select name="departements_id" class="form-control mb-3">
+							                            		@foreach($departements as $val)
+								                              	<option value="{{ $val->id }}" >{{ $val->nom}} </option>
+								                              	@endforeach
+                            								</select>
+							                          	</div>
+							                        </div>
+							                        <div class="form-group row">
 							                          	<label class="col-sm-3 form-control-label">Résidence</label>
 							                          	<div class="col-sm-9">
 							                            	<input type="text" name="adresse" placeholder="Lieu d'habitation" class="form-control form-control-success" value="{{ $client->adresse }}"><!--small class="form-text">Example help text that remains unchanged.</small-->

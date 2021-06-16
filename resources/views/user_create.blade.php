@@ -45,7 +45,7 @@
 							                        <div class="form-group row">
 							                          	<label class="col-sm-3 form-control-label">Noms</label>
 							                          	<div class="col-sm-9">
-							                            	<input type="text" name="noms" placeholder="Noms et prénoms" class="form-control form-control-success"><!--small class="form-text">Example help text that remains unchanged.</small-->
+							                            	<input type="text" name="name" placeholder="Noms et prénoms" class="form-control form-control-success"><!--small class="form-text">Example help text that remains unchanged.</small-->
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">
@@ -58,6 +58,16 @@
 							                          	<label class="col-sm-3 form-control-label">Téléphone</label>
 							                          	<div class="col-sm-9">
 							                            	<input type="tel" name="phone" placeholder="Ex : 98563147" class="form-control form-control-success"><!--small class="form-text">Example help text that remains unchanged.</small-->
+							                          	</div>
+							                        </div>
+							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Département</label>
+							                          	<div class="col-sm-9">
+							                            	<select name="departements_id" class="form-control mb-3">
+							                            		@foreach($departements as $val)
+								                              	<option value="{{ $val->id }}" >{{ $val->nom}} </option>
+								                              	@endforeach
+                            								</select>
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">

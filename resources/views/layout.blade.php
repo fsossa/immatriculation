@@ -144,7 +144,7 @@
 		          	</div>
 		          	<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 		          	<ul class="list-unstyled">
-			            <li class="active"><a href="#"> <i class="icon-home"></i>Accueil </a></li>
+			            <li class="active"><a href="{{ route('home') }}"> <i class="icon-home"></i>Accueil </a></li>
 			            <li><a href="{{ route('vehicules.index') }}"> <i class="fa fa-car"></i>Véhicules </a></li>
 			            <li><a href="{{ route('clients.index') }}"> <i class="fa fa-users"></i>Clients </a></li>
 			            <li><a href="{{ route('modeles.index') }}"> <i class="fa fa-gears"></i>Modeles </a></li>

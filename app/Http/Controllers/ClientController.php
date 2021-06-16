@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Departement;
 
 class ClientController extends Controller
 {
@@ -26,7 +27,9 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('client_create');
+        $departements = Departement::all();
+
+        return view('client_create', compact('departements'));
     }
 
     /**
@@ -47,9 +50,9 @@ class ClientController extends Controller
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
             'num_ci' => 'required|max:255',
+            'departements_id' => 'required',
         ]);
-        $validatedData['departements_id'] = random_int(1, 12);
-        $validatedData['users_id'] = 1;
+        $validatedData['users_id'] = 8;
         //var_dump($validatedData); exit();
 
         $client = Client::create($validatedData);
@@ -77,8 +80,9 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = Client::findOrFail($id);
+        $departements = Departement::all();
 
-        return view('client_edit', compact('client'));
+        return view('client_edit', compact('client', 'departements'));
     }
 
     /**
@@ -100,6 +104,7 @@ class ClientController extends Controller
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
             'num_ci' => 'required|max:255',
+            'departements_id' => 'required',
         ]);
 
         Client::whereId($id)->update($validatedData);

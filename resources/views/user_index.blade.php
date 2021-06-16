@@ -50,7 +50,7 @@
                                                             @foreach($users as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td>{{$val->noms}}</td>
+                                                                    <td>{{$val->name}}</td>
                                                                     <td>{{$val->phone}}</td>
                                                                     <td>{{$val->email}}</td>
                                                                     <td><div class="row col-lg-12">

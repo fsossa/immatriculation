@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vehicule;
+use App\Models\Client;
+use App\Models\Modele;
+use App\Models\Status;
 
 class VehiculeController extends Controller
 {
@@ -26,7 +29,10 @@ class VehiculeController extends Controller
      */
     public function create()
     {
-        return view('vehicule_create');
+        $clients = Client::all();
+        $modeles = Modele::all();
+        $statuses = Status::all();
+        return view('vehicule_create', compact('clients', 'modeles', 'statuses'));
     }
 
     /**
@@ -43,11 +49,11 @@ class VehiculeController extends Controller
             'num_chassis' => 'required|max:255',
             'plaque' => 'required',
             'annee_sortie' => 'required|min:4|max:4',
+            'clients_id' => 'required',
+            'modeles_id' => 'required',
+            'statuses_id' => 'required',
         ]);
-        $validatedData['clients_id'] = random_int(1, 2);
-        $validatedData['modeles_id'] = random_int(1, 3);
-        $validatedData['statuses_id'] = random_int(1, 3);
-        $validatedData['users_id'] = 1;
+        $validatedData['users_id'] = 8;
         //var_dump($validatedData); exit();
 
         $vehicule = Vehicule::create($validatedData);
@@ -75,8 +81,11 @@ class VehiculeController extends Controller
     public function edit($id)
     {
         $vehicule = Vehicule::findOrFail($id);
+        $clients = Client::all();
+        $modeles = Modele::all();
+        $statuses = Status::all();
 
-        return view('vehicule_edit', compact('vehicule'));
+        return view('vehicule_edit', compact('vehicule', 'clients', 'modeles', 'statuses'));
     }
 
     /**
@@ -94,6 +103,9 @@ class VehiculeController extends Controller
             'num_chassis' => 'required|max:255',
             'plaque' => 'required',
             'annee_sortie' => 'required|min:4|max:4',
+            'clients_id' => 'required',
+            'modeles_id' => 'required',
+            'statuses_id' => 'required',
         ]);
 
         Vehicule::whereId($id)->update($validatedData);
