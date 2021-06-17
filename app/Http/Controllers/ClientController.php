@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Departement;
+use Spatie\Permission\Models\Role;
+use DB;
+use Illuminate\Support\Arr;
 
 class ClientController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:client-create', ['only' => ['create','store']]);
+         $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +26,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('id','ASC')->paginate(5);
 
-        return view('client_index', compact('clients'));
+        return view('client_index', compact('clients'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

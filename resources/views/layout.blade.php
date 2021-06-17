@@ -148,7 +148,8 @@
 			            <li><a href="{{ route('vehicules.index') }}"> <i class="fa fa-car"></i>Véhicules </a></li>
 			            <li><a href="{{ route('clients.index') }}"> <i class="fa fa-users"></i>Clients </a></li>
 			            <li><a href="{{ route('modeles.index') }}"> <i class="fa fa-gears"></i>Modeles </a></li>
-		            	<li><a href="{{ route('users.index') }}"> <i class="fa fa-star"></i>Agents </a></li>
+		            	<li><a href="{{ route('users.index') }}"> <i class="fa fa-star"></i>Utilisateurs </a></li>
+		            	<li><a href="{{ route('roles.index') }}"> <i class="fa fa-star"></i>Roles </a></li>
 		          	</ul>
 		        </nav>
 		        <div class="content-inner">

@@ -22,7 +22,6 @@ class HomeController extends Controller
     {
         $agents = DB::table('users')
             ->join('departements','users.departements_id','=','departements.id')
-            ->where('users.roles_id', '=', 2)
             ->select('users.*', 'departements.nom as departement')
             ->orderBy('users.id', 'desc')
             ->limit(3)

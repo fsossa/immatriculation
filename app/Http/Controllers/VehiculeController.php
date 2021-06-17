@@ -7,9 +7,19 @@ use App\Models\Vehicule;
 use App\Models\Client;
 use App\Models\Modele;
 use App\Models\Status;
+use Spatie\Permission\Models\Role;
+use DB;
+use Illuminate\Support\Arr;
 
 class VehiculeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:vehicule-list|vehicule-create|vehicule-edit|vehicule-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:vehicule-create', ['only' => ['create','store']]);
+         $this->middleware('permission:vehicule-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:vehicule-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +27,9 @@ class VehiculeController extends Controller
      */
     public function index()
     {
-        $vehicules = Vehicule::all();
+        $vehicules = Vehicule::orderBy('id','ASC')->paginate(5);
 
-        return view('vehicule_index', compact('vehicules'));
+        return view('vehicule_index', compact('vehicules'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

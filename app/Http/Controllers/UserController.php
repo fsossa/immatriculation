@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Departement;
 use Hash;
+use Spatie\Permission\Models\Role;
+use DB;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -16,9 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
-        return view('user_index', compact('users'));
+        //$users = User::all();
+        $users = User::orderBy('id','ASC')->paginate(5);
+        return view('user_index', compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,8 +32,8 @@ class UserController extends Controller
     public function create()
     {
         $departements = Departement::all();
-
-        return view('user_create', compact('departements'));
+        $roles = Role::pluck('name','name')->all();
+        return view('user_create', compact('departements', 'roles'));
     }
 
     /**
@@ -42,17 +45,27 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //var_dump("expression"); exit();
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
             'departements_id' => 'required|',
             'password' => 'required|min:6',
+            'roles' => 'required'
         ]);
-        $validatedData['password'] = Hash::make($validatedData['password'] ) ; 
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+    
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+    
+        //$validatedData['password'] = Hash::make($validatedData['password'] ) ; 
         //$validatedData['departements_id'] = random_int(1, 12);
-        $validatedData['roles_id'] = 2;
+        //$validatedData['roles_id'] = 2;
         //var_dump($validatedData); exit();
+        $x = $request->input('roles');
+        dd($x); exit();
 
         $user = User::create($validatedData);
 
@@ -67,7 +80,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('user_show', compact('user'));
     }
 
     /**
@@ -80,8 +94,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $departements = Departement::all();
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('user_edit', compact('user', 'departements'));
+        return view('user_edit', compact('user', 'departements', 'roles', 'userRole'));
     }
 
     /**
@@ -99,11 +115,15 @@ class UserController extends Controller
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
             'departements_id' => 'required|',
+            'roles' => 'required|',
         ]);
+        $user = User::find($id);
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
 
-        User::whereId($id)->update($validatedData);
-
-        return redirect('/users')->with('success', 'Agent mise à jour avec succèss');
+        return redirect('/users')->with('success', 'Utilisateur mise à jour avec succèss');
 
     }
 
