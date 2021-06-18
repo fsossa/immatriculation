@@ -38,7 +38,7 @@
 						                    </div>
 					                    	<div class="card-body">
 					                    	
-						                      	<p>...</p>
+						                      	<p></p>
 								                <form class="form-horizontal" method="post" action="{{ route('users.store') }}">
 							                	@csrf
 							                	@method('POST')
@@ -73,11 +73,7 @@
 							                        <div class="form-group row">
 							                          	<label class="col-sm-3 form-control-label">Roles</label>
 							                          	<div class="col-sm-9">
-							                            	<select name="roles" class="form-control mb-3">
-							                            		@foreach($roles as $val)
-								                              	<option value="{{ $val->name }}" >{{ $val->name}} </option>
-								                              	@endforeach
-                            								</select>
+							                          		{!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">

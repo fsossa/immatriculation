@@ -17,11 +17,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $users = DB::table('users')
+            ->join('departements','users.departements_id','=','departements.id')
+            ->join('roles','users.roles','=','roles.id')
+            ->select('users.*', 'departements.nom as departement', 'roles.name as role')
+            ->get();
         //$users = User::all();
-        $users = User::orderBy('id','ASC')->paginate(5);
-        return view('user_index', compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
+        //dd($users); exit();
+        //$users = User::orderBy('id','ASC')->paginate(5);
+        return view('user_index', compact('users')) ;//->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -55,19 +61,11 @@ class UserController extends Controller
         ]);
 
         $input = $request->all();
+        $input['roles'] = DB::table('roles')->where('roles.name', '=', $input['roles'])->select('roles.id')->first()->id;
         $input['password'] = Hash::make($input['password']);
-    
+        //dd($input); exit();
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-    
-        //$validatedData['password'] = Hash::make($validatedData['password'] ) ; 
-        //$validatedData['departements_id'] = random_int(1, 12);
-        //$validatedData['roles_id'] = 2;
-        //var_dump($validatedData); exit();
-        $x = $request->input('roles');
-        dd($x); exit();
-
-        $user = User::create($validatedData);
 
         return redirect('/users')->with('success', 'Agent créer avec succèss');
     }
@@ -95,9 +93,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $departements = Departement::all();
         $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        //$userRole = $user->roles->pluck('name','name')->all();
 
-        return view('user_edit', compact('user', 'departements', 'roles', 'userRole'));
+        return view('user_edit', compact('user', 'departements', 'roles'));
     }
 
     /**
@@ -117,8 +115,9 @@ class UserController extends Controller
             'departements_id' => 'required|',
             'roles' => 'required|',
         ]);
+        $validatedData['roles'] = DB::table('roles')->where('roles.name', '=', $validatedData['roles'])->select('roles.id')->first()->id;
         $user = User::find($id);
-        $user->update($input);
+        $user->update($validatedData);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
     
         $user->assignRole($request->input('roles'));

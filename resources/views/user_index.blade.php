@@ -43,6 +43,8 @@
                                                                 <th>Noms</th>
                                                                 <th>Téléphone</th>
                                                                 <th>Email</th>
+                                                                <th>Département</th>
+                                                                <th>Roles</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
@@ -53,6 +55,8 @@
                                                                     <td>{{$val->name}}</td>
                                                                     <td>{{$val->phone}}</td>
                                                                     <td>{{$val->email}}</td>
+                                                                    <td>{{$val->departement}}</td>
+                                                                    <td><label class="badge badge-primary">{{ $val->role }}</label></td>
                                                                     <td><div class="row col-lg-12">
                                                                         <a href="{{ route('users.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
                                                                         <form action="{{ route('users.destroy', $val->id)}}" method="post" style="">

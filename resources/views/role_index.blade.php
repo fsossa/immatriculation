@@ -32,7 +32,7 @@
                                             </div>
 
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Liste des modeles</h3>
+                                                <h3 class="h4">Liste des Roles</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
