@@ -10,23 +10,98 @@
                         <section class="dashboard-counts">
                             <div class="container-fluid">
                                 <div class="row bg-white has-shadow">
-                                    @foreach($modeles as $val)
-                                        <!-- Item -->
-                                        <div class="col-xl-3 col-sm-6">
-                                            <div class="item d-flex align-items-center">
-                                                <div class="icon bg-violet"><i class="icon-user"></i></div>
-                                                <div class="title"><span>{{ $val->marque }}<br>{{ $val->model }}</span>
-                                                  <!--div class="progress">
-                                                    <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
-                                                  </div-->
-                                                </div>
-                                                <div class="number"><strong>25</strong></div>
+                                    
+                                    <!-- Item -->
+                                    <div class="col-xl-3 col-sm-6">
+                                        <div class="item d-flex align-items-center">
+                                            <div class="icon bg-violet"><i class="fa fa-car"></i></div>
+                                            <div class="title"><span>Véhicules</span>
+                                              <!--div class="progress">
+                                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                                              </div-->
                                             </div>
+                                            <div class="number"><strong>{{ $stat['nbr_vehicule'] }}</strong></div>
                                         </div>
-                                    @endforeach
+                                    </div>
+                                    <!-- Item -->
+                                    <div class="col-xl-3 col-sm-6">
+                                        <div class="item d-flex align-items-center">
+                                            <div class="icon bg-violet"><i class="fa fa-user"></i></div>
+                                            <div class="title"><span>Clients</span>
+                                              <!--div class="progress">
+                                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                                              </div-->
+                                            </div>
+                                            <div class="number"><strong>{{ $stat['nbr_client'] }}</strong></div>
+                                        </div>
+                                    </div>
+                                    <!-- Item -->
+                                    <div class="col-xl-3 col-sm-6">
+                                        <div class="item d-flex align-items-center">
+                                            <div class="icon bg-violet"><i class="fa fa-gear"></i></div>
+                                            <div class="title"><span>Modeles</span>
+                                              <!--div class="progress">
+                                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                                              </div-->
+                                            </div>
+                                            <div class="number"><strong>{{ $stat['nbr_modele'] }}</strong></div>
+                                        </div>
+                                    </div>
+                                    <!-- Item -->
+                                    <div class="col-xl-3 col-sm-6">
+                                        <div class="item d-flex align-items-center">
+                                            <div class="icon bg-violet"><i class="fa fa-star"></i></div>
+                                            <div class="title"><span>Utilisateurs</span>
+                                              <!--div class="progress">
+                                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                                              </div-->
+                                            </div>
+                                            <div class="number"><strong>{{ $stat['nbr_user'] }}</strong></div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        </section>                        
+                        </section>
+                        <section class="dashboard-header">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!-- Statistics -->
+                                    <div class="statistics col-lg-3 col-12">
+                                        <div class="statistic d-flex align-items-center bg-white has-shadow">
+                                            <div class="icon bg-green"><i class="fa fa-car"></i></div>
+                                            <div class="text"><strong>{{ $stat['nbr_vehicule_val'] }}</strong><br><small>Validés</small></div>
+                                        </div>
+                                        <div class="statistic d-flex align-items-center bg-white has-shadow">
+                                            <div class="icon bg-orange"><i class="fa fa-car"></i></div>
+                                            <div class="text"><strong>{{ $stat['nbr_vehicule_cours'] }}</strong><br><small>En cours</small></div>
+                                        </div>
+                                        <div class="statistic d-flex align-items-center bg-white has-shadow">
+                                            <div class="icon bg-red"><i class="fa fa-car"></i></div>
+                                            <div class="text"><strong>{{ $stat['nbr_vehicule_att'] }}</strong><br><small>En attentes</small></div>
+                                        </div>
+                                    </div>
+                                    <!-- Line Chart            -->
+                                    <div class="chart col-lg-6 col-12">
+                                        <div class="line-chart bg-white d-flex align-items-center justify-content-center has-shadow">
+                                            <canvas id="lineCahrt"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="chart col-lg-3 col-12">
+                                        <!-- Bar Chart   -->
+                                        <div class="bar-chart has-shadow bg-white">
+                                            <div class="title"><strong class="text-violet">95%</strong><br><small>Current Server Uptime</small></div>
+                                            <canvas id="barChartHome"></canvas>
+                                        </div>
+                                        <!-- Numbers-->
+                                        <div class="statistic d-flex align-items-center bg-white has-shadow">
+                                            <div class="icon bg-green"><i class="fa fa-line-chart"></i></div>
+                                            <div class="text"><strong>99.9%</strong><br><small>Success Rate</small></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </section>                        
                         <section class="tables">   
                             <div class="container-fluid">
                                 <div class="row">
