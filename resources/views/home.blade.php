@@ -83,7 +83,7 @@
                                     <!-- Line Chart            -->
                                     <div class="chart col-lg-6 col-12">
                                         <div class="line-chart bg-white d-flex align-items-center justify-content-center has-shadow">
-                                            <canvas id="lineCahrt"></canvas>
+                                            <canvas id="graph1"></canvas>
                                         </div>
                                     </div>
                                     <div class="chart col-lg-3 col-12">

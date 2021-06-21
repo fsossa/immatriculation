@@ -25,6 +25,8 @@
 	    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 	    <!-- Favicon-->
 	    <link rel="shortcut icon" href="{{asset('img/logo_conceptiIO.png')}}">
+	    <!-- chartjs-->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
   	</head>
   	<body>
 	    <div class="page">
@@ -183,5 +185,48 @@
 	    <script src="{{asset('js/charts-home.js')}}"></script>
 	    <!-- Main File-->
 	    <script src="{{asset('js/front.js')}}"></script>
+	    <script>
+	    	var ctx = document.getElementById('graph1').getContext('2d');
+			var graph1 = new Chart(ctx, {
+			    type: 'line',
+			    data: {
+			        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Juin', 'Mai', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+			        datasets: [{
+			            label: 'Véhicules',
+			            data: <?php echo json_encode($stat['vehicules_t']); ?>,
+			            
+			            borderColor: [
+			                'rgba(255, 99, 132, 1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                'rgba(255, 159, 64, 1)'
+			            ],
+			            borderWidth: 1
+			        },{
+			            label: 'Validés',
+			            data: [10, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+			            
+			            borderColor: [
+			                'rgba(255, 99, 132, 1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                'rgba(255, 159, 64, 1)'
+			            ],
+			            borderWidth: 1
+			        }]
+			    },
+			    options: {
+			        scales: {
+			            y: {
+			                beginAtZero: true
+			            }
+			        }
+			    }
+			});
+	    </script>
   	</body>
 </html>
