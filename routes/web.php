@@ -19,6 +19,7 @@ Route::resource('users', 'UserController');
 Route::resource('modeles', 'ModeleController');
 Route::resource('clients', 'ClientController');
 Route::resource('vehicules', 'VehiculeController');
+Route::resource('roles', 'RoleController');
 
 Auth::routes();
 

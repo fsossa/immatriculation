@@ -7,9 +7,18 @@ use App\Models\Vehicule;
 use App\Models\Client;
 use App\Models\Modele;
 use App\Models\Status;
+use Illuminate\Support\Facades\Auth;
 
 class VehiculeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:vehicule-list|vehicule-create|vehicule-edit|vehicule-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:vehicule-create', ['only' => ['create','store']]);
+         $this->middleware('permission:vehicule-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:vehicule-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +62,7 @@ class VehiculeController extends Controller
             'modeles_id' => 'required',
             'statuses_id' => 'required',
         ]);
-        $validatedData['users_id'] = 8;
+        $validatedData['users_id'] = Auth::id();
         //var_dump($validatedData); exit();
 
         $vehicule = Vehicule::create($validatedData);

@@ -70,6 +70,12 @@
                             								</select>
 							                          	</div>
 							                        </div>
+							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Roles</label>
+							                          	<div class="col-sm-9">
+							                            	{!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+							                          	</div>
+							                        </div>
 							                        <div class="form-group row">       
 							                          	<div class="col-sm-9 offset-sm-3">
 							                            	<input type="submit" value="Modifier" class="btn btn-primary">

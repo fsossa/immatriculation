@@ -71,6 +71,12 @@
 							                          	</div>
 							                        </div>
 							                        <div class="form-group row">
+							                          	<label class="col-sm-3 form-control-label">Roles</label>
+							                          	<div class="col-sm-9">
+							                            	{!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+							                          	</div>
+							                        </div>
+							                        <div class="form-group row">
 							                          	<label class="col-sm-3 form-control-label">Mot de passe</label>
 							                          	<div class="col-sm-9">
 							                            	<input type="password" name="password" placeholder="" class="form-control form-control-success"><!--small class="form-text">Example help text that remains unchanged.</small-->

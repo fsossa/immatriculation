@@ -20,13 +20,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $agents = DB::table('users')
-            ->join('departements','users.departements_id','=','departements.id')
-            ->where('users.roles_id', '=', 2)
-            ->select('users.*', 'departements.nom as departement')
-            ->orderBy('users.id', 'desc')
-            ->limit(3)
-            ->get();
+        $stat['nbr_user'] = DB::table('users')
+            ->select('users.*')
+            ->get()->count();
+        
+        $stat['nbr_vehicule'] = DB::table('vehicules')
+            ->select('vehicules.*')
+            ->get()->count();
+        
+        $stat['nbr_client'] = DB::table('clients')
+            ->select('clients.*')
+            ->get()->count();
+        
+        $stat['nbr_modele'] = DB::table('modeles')
+            ->select('modeles.*')
+            ->get()->count();
+        
+        $stat['nbr_vehicule_cours'] = DB::table('vehicules')
+            ->where('vehicules.statuses_id', '=', 2)
+            ->select('vehicules.*')
+            ->get()->count();
+
+        $stat['nbr_vehicule_att'] = DB::table('vehicules')
+            ->where('vehicules.statuses_id', '=', 1)
+            ->select('vehicules.*')
+            ->get()->count();
+
+        $stat['nbr_vehicule_val'] = DB::table('vehicules')
+            ->where('vehicules.statuses_id', '=', 3)
+            ->select('vehicules.*')
+            ->get()->count();
 
         $vehicules = DB::table('vehicules')
             ->join('clients','clients.id','=','vehicules.clients_id')
@@ -52,6 +75,6 @@ class HomeController extends Controller
             ->get();
 
         //dd($clients); exit();
-        return view('home', compact('agents', 'vehicules', 'clients', 'modeles'));
+        return view('home', compact('stat', 'vehicules', 'clients', 'modeles'));
     }
 }

@@ -7,6 +7,14 @@ use App\Models\Modele;
 
 class ModeleController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:modele-list|modele-create|modele-edit|modele-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:modele-create', ['only' => ['create','store']]);
+         $this->middleware('permission:modele-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:modele-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,13 +46,19 @@ class ModeleController extends Controller
     public function store(Request $request)
     {
         //var_dump("expression"); exit();
-        $validatedData = $request->validate([
+        request()->validate([
+            'marque' => 'required|max:255',
+            'model' => 'required|max:255',
+        ]);
+    
+        Modele::create($request->all());
+        /*$validatedData = $request->validate([
             'marque' => 'required|max:255',
             'model' => 'required|max:255',
         ]);
         //var_dump($validatedData); exit();
 
-        $modele = Modele::create($validatedData);
+        $modele = Modele::create($validatedData);*/
 
         return redirect('/modeles')->with('success', 'Modele créer avec succèss');
     }
@@ -57,7 +71,9 @@ class ModeleController extends Controller
      */
     public function show($id)
     {
-        //
+        $modele = Modele::findOrFail($id);
+
+        return view('modele_edit', compact('modele'));
     }
 
     /**

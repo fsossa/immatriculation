@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Departement;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:client-create', ['only' => ['create','store']]);
+         $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +60,7 @@ class ClientController extends Controller
             'num_ci' => 'required|max:255',
             'departements_id' => 'required',
         ]);
-        $validatedData['users_id'] = 8;
+        $validatedData['users_id'] = Auth::id();
         //var_dump($validatedData); exit();
 
         $client = Client::create($validatedData);
@@ -68,7 +76,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::findOrFail($id);
+
+        return view('client_edit', compact('client'));
     }
 
     /**
@@ -106,6 +116,7 @@ class ClientController extends Controller
             'num_ci' => 'required|max:255',
             'departements_id' => 'required',
         ]);
+        $validatedData['users_id'] = Auth::id(); 
 
         Client::whereId($id)->update($validatedData);
 

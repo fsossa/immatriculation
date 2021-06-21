@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Departement;
 use Hash;
+use Spatie\Permission\Models\Role;
+use DB;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -29,8 +33,8 @@ class UserController extends Controller
     public function create()
     {
         $departements = Departement::all();
-
-        return view('user_create', compact('departements'));
+        $roles = Role::pluck('name','name')->all();
+        return view('user_create', compact('departements', 'roles'));
     }
 
     /**
@@ -42,7 +46,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //var_dump("expression"); exit();
-        $validatedData = $request->validate([
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|min:8|max:8',
+            'departements_id' => 'required|',
+            'password' => 'required|min:6',
+            'roles' => 'required'
+        ]);
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+    
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+
+        /**$validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
@@ -54,9 +72,9 @@ class UserController extends Controller
         $validatedData['roles_id'] = 2;
         //var_dump($validatedData); exit();
 
-        $user = User::create($validatedData);
+        $user = User::create($validatedData);**/
 
-        return redirect('/users')->with('success', 'Agent créer avec succèss');
+        return redirect('/users')->with('success', 'Utilisateur ajouté avec succèss');
     }
 
     /**
@@ -67,7 +85,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.show',compact('user'));
     }
 
     /**
@@ -78,10 +97,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
         $departements = Departement::all();
 
-        return view('user_edit', compact('user', 'departements'));
+        return view('user_edit', compact('user', 'departements', 'roles', 'userRole'));
     }
 
     /**
@@ -94,14 +115,30 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //var_dump("expression"); exit();
-        $validatedData = $request->validate([
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'phone' => 'required|min:8|max:8',
+            'departements_id' => 'required|',
+            'roles' => 'required'
+        ]);
+    
+        $input = $request->all();
+
+        $user = User::find($id);
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
+
+        /*$validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:8',
             'departements_id' => 'required|',
         ]);
 
-        User::whereId($id)->update($validatedData);
+        User::whereId($id)->update($validatedData);*/
 
         return redirect('/users')->with('success', 'Agent mise à jour avec succèss');
 
@@ -116,8 +153,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //var_dump("expression"); exit();
-        $user = User::findOrFail($id);
-        $user->delete();
+        User::find($id)->delete();
 
         return redirect('/users')->with('success', 'Agent supprimer avec succèss');
     }

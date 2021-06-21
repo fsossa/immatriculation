@@ -8,10 +8,10 @@
 
                         <header class="page-header">
                             <div class="container-fluid">
-                                <h2 class="no-margin-bottom">Utilisateur</h2>
+                                <h2 class="no-margin-bottom">Role</h2>
                             </div>
                             <div style="margin-left: 80%; ">
-                                <a href="{{ route('users.create')}}" class="btn btn-outline-primary">Ajouter un utilisateur</a>
+                                <a href="{{ route('roles.create')}}" class="btn btn-outline-primary">Ajouter un role</a>
                             </div>
                         </header>
                         @if(session()->get('success'))
@@ -41,29 +41,17 @@
                                                             <tr>
                                                                 <th>#</th>
                                                                 <th>Noms</th>
-                                                                <th>Téléphone</th>
-                                                                <th>Email</th>
-                                                                <th>Role</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($users as $val)
+                                                            @foreach($roles as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
                                                                     <td>{{$val->name}}</td>
-                                                                    <td>{{$val->phone}}</td>
-                                                                    <td>{{$val->email}}</td>
-                                                                    <td>
-                                                                        @if(!empty($val->getRoleNames()))
-                                                                            @foreach($val->getRoleNames() as $v)
-                                                                               <label class="badge badge-success">{{ $v }}</label>
-                                                                            @endforeach
-                                                                        @endif
-                                                                    </td>
                                                                     <td><div class="row col-lg-12">
-                                                                        <a href="{{ route('users.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('users.destroy', $val->id)}}" method="post" style="">
+                                                                        <a href="{{ route('roles.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
+                                                                        <form action="{{ route('roles.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
                                                                           <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
