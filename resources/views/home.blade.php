@@ -95,7 +95,7 @@
                                         <!-- Numbers-->
                                         <div class="statistic d-flex align-items-center bg-white has-shadow">
                                             <div class="icon bg-green"><i class="fa fa-line-chart"></i></div>
-                                            <div class="text"><strong>{{ $stat['vehicule_taux_f'] }} %</strong><br><small>Taux validé</small></div>
+                                            <div class="text"><strong>{{ $stat['vehicule_taux_f'] }} %</strong><br><small>Taux de validation</small></div>
                                         </div>
                                     </div>
                                 </div>

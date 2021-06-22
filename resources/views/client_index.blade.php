@@ -59,20 +59,23 @@
                                                                     <td>{{$val->num_ci}}</td>
 
 
-                                                                    <td><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Form in simple modal </button></td>
-
-
-                                                                    <td><div class="row col-lg-12">
+                                                                    <td>
+                                                                        @include('/client_modal')
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalCE{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalCD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
+                                                                    </td>
+                                                                    <!--td><div class="row col-lg-12">
                                                                         <a href="{{ route('clients.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
                                                                         <form action="{{ route('clients.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
-                                                                          <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+                                                                          <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
                                                                         </form>
                                                                       </div>
-                                                                    </td>
+                                                                    </td-->
                                                                 </tr>
                                                             @endforeach
+
                                                         </tbody>
                                                     </table>
                                                 </div>

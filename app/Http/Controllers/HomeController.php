@@ -144,7 +144,12 @@ class HomeController extends Controller
         while ($m <= date('n')) {
             $nbrMT = $this->nbrByMonthP($m) + $this->nbrByMonth($m);
             $nbrM = $this->nbrByMonthV($m);
-            $nbrP = ($nbrM / $nbrMT) * 100;
+            if ($nbrMT == 0) {
+                $nbrP = 0;
+            }else{
+                $nbrP = ($nbrM / $nbrMT) * 100;
+            }
+            
             if ($m == date('n')) {
                 $conP = $conP.$nbrP.']';
             }else{
@@ -203,7 +208,12 @@ class HomeController extends Controller
             ->where('vehicules.statuses_id', '=', 3)
             ->get()->count();
 
-        $nbr = ($nbrV / $nbrT)*100;
+        if ($nbrT == 0) {
+                $nbr = 0;
+            }else{
+                $nbr = ($nbrV / $nbrT)*100;
+            }
+        
         return round($nbr, 2);
 
     }

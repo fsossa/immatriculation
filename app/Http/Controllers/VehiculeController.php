@@ -35,7 +35,11 @@ class VehiculeController extends Controller
             ->orderBy('vehicules.id', 'desc')
             ->get();
 
-        return view('vehicule_index', compact('vehicules'));
+        $clients = Client::all();
+        $modeles = Modele::all();
+        $statuses = Status::all();
+
+        return view('vehicule_index', compact('vehicules', 'clients', 'modeles', 'statuses'));
     }
 
     /**

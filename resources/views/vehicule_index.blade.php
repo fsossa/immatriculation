@@ -59,7 +59,12 @@
                                                                     <td>{{$val->plaque}}</td>
                                                                     <td>{{$val->client}}</td>
                                                                     <td><label class="badge badge-primary">{{$val->titre}}</label></td>
-                                                                    <td><div class="row col-lg-12">
+                                                                    <td>
+                                                                        @include('/vehicule_modal')
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalVE{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalVD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
+                                                                    </td>
+                                                                    <!--td><div class="row col-lg-12">
                                                                         <a href="{{ route('vehicules.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
                                                                         <form action="{{ route('vehicules.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
@@ -67,7 +72,7 @@
                                                                           <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
                                                                         </form>
                                                                       </div>
-                                                                    </td>
+                                                                    </td-->
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
