@@ -63,6 +63,8 @@ class VehiculeController extends Controller
             'statuses_id' => 'required',
         ]);
         $validatedData['users_id'] = Auth::id();
+        $validatedData['mois'] = date('n');
+        $validatedData['annee'] = date('Y');
         //var_dump($validatedData); exit();
 
         $vehicule = Vehicule::create($validatedData);
@@ -116,6 +118,8 @@ class VehiculeController extends Controller
             'modeles_id' => 'required',
             'statuses_id' => 'required',
         ]);
+        $validatedData['mois'] = date('n');
+        $validatedData['annee'] = date('Y');
 
         Vehicule::whereId($id)->update($validatedData);
 

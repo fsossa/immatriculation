@@ -51,9 +51,12 @@ class HomeController extends Controller
             ->select('vehicules.*')
             ->get()->count();
 
+        //$nbrM = $this->nbrByMonthP(6);
+        //dd($nbrM); exit();
         $stat['vehicules_t'] = $this->concacT();
 
-        $stat['vehicule_by_m'] = $this->concacM();;
+        $stat['vehicule_by_m'] = $this->concacM();
+        //dd($stat['vehicule_by_m']); exit();
 
         $vehicules = DB::table('vehicules')
             ->join('clients','clients.id','=','vehicules.clients_id')
@@ -89,7 +92,7 @@ class HomeController extends Controller
         while ($m <= date('n')) {
             
             $nbrM = $this->nbrByMonthP($m) + $this->nbrByMonth($m);
-            if ($m+1 == date('n')) {
+            if ($m == date('n')) {
                 $conY = $conY.$nbrM.']';
             }else{
                 $conY = $conY.$nbrM.', ';
@@ -107,8 +110,8 @@ class HomeController extends Controller
         $m = 1;
         while ($m <= date('n')) {
             
-            $nbrM = $this->nbrByMonthVP($m) + nbrByMonthV($m);
-            if ($m+1 == date('n')) {
+            $nbrM = $this->nbrByMonthV($m);
+            if ($m == date('n')) {
                 $conM = $conM.$nbrM.']';
             }else{
                 $conM = $conM.$nbrM.', ';
@@ -127,8 +130,19 @@ class HomeController extends Controller
             ->select('vehicules.*')
             ->get()->count();
 
-            return $nbr;
+        return $nbr;
 
+    }
+
+    protected function nbrByMonthP($m){
+        $nbr = DB::table('vehicules')
+            ->where('vehicules.annee', '=', date('Y'))
+            ->where('vehicules.mois', '<', $m)
+            ->where('vehicules.statuses_id', '<', 3)
+            ->select('vehicules.*')
+            ->get()->count();
+
+        return $nbr;
     }
 
     protected function nbrByMonthV($m){
@@ -139,17 +153,7 @@ class HomeController extends Controller
             ->select('vehicules.*')
             ->get()->count();
 
-            return $nbr;
+        return $nbr;
 
-    }
-
-    protected function nbrByMonthP($m){
-        $nbr = DB::table('vehicules')
-            ->where('vehicules.annee', '=', date('Y'))
-            ->where('vehicules.mois', '<', $m)
-            ->select('vehicules.*')
-            ->get()->count();
-
-            
     }
 }

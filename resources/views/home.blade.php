@@ -218,7 +218,49 @@
                         </section>
                         
 
-
+                        <script>
+                            var ctx = document.getElementById('graph1').getContext('2d');
+                            var graph1 = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+                                    datasets: [{
+                                        label: 'Véhicules',
+                                        data: <?php echo $stat['vehicules_t']; ?>,
+                                        
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    },{
+                                        label: 'Validés',
+                                        data: <?php echo $stat['vehicule_by_m']; ?>,
+                                        
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
 
 
 
