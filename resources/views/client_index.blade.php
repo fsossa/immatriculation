@@ -57,12 +57,17 @@
                                                                     <td>{{$val->phone}}</td>
                                                                     <td>{{$val->email}}</td>
                                                                     <td>{{$val->num_ci}}</td>
+
+
+                                                                    <td><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Form in simple modal </button></td>
+
+
                                                                     <td><div class="row col-lg-12">
                                                                         <a href="{{ route('clients.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
                                                                         <form action="{{ route('clients.destroy', $val->id)}}" method="post" style="">
                                                                           @csrf
                                                                           @method('DELETE')
-                                                                          <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
+                                                                          <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-danger"><i class="fa fa-remove"></i></button>
                                                                         </form>
                                                                       </div>
                                                                     </td>

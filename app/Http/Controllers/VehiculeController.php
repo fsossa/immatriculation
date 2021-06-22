@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Modele;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class VehiculeController extends Controller
 {
@@ -26,7 +27,13 @@ class VehiculeController extends Controller
      */
     public function index()
     {
-        $vehicules = Vehicule::all();
+        $vehicules = DB::table('vehicules')
+            ->join('clients','clients.id','=','vehicules.clients_id')
+            ->join('modeles','modeles.id','=','vehicules.modeles_id')
+            ->join('statuses','statuses.id','=','vehicules.statuses_id')
+            ->select('vehicules.*', 'clients.nom as client', 'modeles.marque', 'modeles.model', 'statuses.titre')
+            ->orderBy('vehicules.id', 'desc')
+            ->get();
 
         return view('vehicule_index', compact('vehicules'));
     }
@@ -80,7 +87,16 @@ class VehiculeController extends Controller
      */
     public function show($id)
     {
-        //
+        $vehicule = DB::table('vehicules')
+            ->join('clients','clients.id','=','vehicules.clients_id')
+            ->join('modeles','modeles.id','=','vehicules.modeles_id')
+            ->join('statuses','statuses.id','=','vehicules.statuses_id')
+            ->where('vehicules.id', '=', $id)
+            ->select('vehicules.*', 'clients.nom as client', 'modeles.marque', 'modeles.model', 'statuses.titre')
+            ->orderBy('vehicules.id', 'desc')
+            ->get();
+
+        return view('vehicule_show', compact('vehicule'));
     }
 
     /**

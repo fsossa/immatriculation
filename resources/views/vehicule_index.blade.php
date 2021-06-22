@@ -44,6 +44,8 @@
                                                                 <th>Numéro de chasis</th>
                                                                 <th>Année de sortie</th>
                                                                 <th>Numéro de plaque</th>
+                                                                <th>Propriétaire</th>
+                                                                <th>Etape</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
@@ -55,6 +57,8 @@
                                                                     <td>{{$val->num_chassis}}</td>
                                                                     <td>{{$val->annee_sortie}}</td>
                                                                     <td>{{$val->plaque}}</td>
+                                                                    <td>{{$val->client}}</td>
+                                                                    <td><label class="badge badge-primary">{{$val->titre}}</label></td>
                                                                     <td><div class="row col-lg-12">
                                                                         <a href="{{ route('vehicules.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
                                                                         <form action="{{ route('vehicules.destroy', $val->id)}}" method="post" style="">
