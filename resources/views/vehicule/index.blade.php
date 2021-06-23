@@ -8,10 +8,10 @@
 
                         <header class="page-header">
                             <div class="container-fluid">
-                                <h2 class="no-margin-bottom">Client</h2>
+                                <h2 class="no-margin-bottom">Vehicule</h2>
                             </div>
                             <div style="margin-left: 80%; ">
-                                <a href="{{ route('clients.create')}}" class="btn btn-outline-primary">Ajouter un client</a>
+                                <a href="{{ route('vehicules.create')}}" class="btn btn-outline-primary">Ajouter un vehicule</a>
                             </div>
                         </header>
                         @if(session()->get('success'))
@@ -32,7 +32,7 @@
                                             </div>
 
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Liste des clients</h3>
+                                                <h3 class="h4">Liste des véhicules immatriculés</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -40,42 +40,32 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Noms</th>
-                                                                <th>Naissance</th>
-                                                                <th>Téléphone</th>
-                                                                <th>Email</th>
-                                                                <th>Carte d'identité</th>
+                                                                <th>Nom</th>
+                                                                <th>Numéro de chasis</th>
+                                                                <th>Année de sortie</th>
+                                                                <th>Numéro de plaque</th>
+                                                                <th>Propriétaire</th>
+                                                                <th>Etape</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($clients as $val)
+                                                            @foreach($vehicules as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td><a href="{{ route('clients.show', $val->id)}}">{{$val->nom.' '.$val->prenoms}}</a></td>
-                                                                    <td>{{$val->date_naissance.'/'.$val->lieu_naissance}}</td>
-                                                                    <td>{{$val->phone}}</td>
-                                                                    <td>{{$val->email}}</td>
-                                                                    <td>{{$val->num_ci}}</td>
-
-
+                                                                    <td><a href="{{ route('vehicules.show', $val->id) }}">{{$val->marque.' '.$val->model.' '.$val->annee_sortie}}</a></td>
+                                                                    <td>{{$val->num_chassis}}</td>
+                                                                    <td>{{$val->annee_sortie}}</td>
+                                                                    <td>{{$val->plaque}}</td>
+                                                                    <td>{{$val->client}}</td>
+                                                                    <td><label class="badge badge-primary">{{$val->titre}}</label></td>
                                                                     <td>
-                                                                        @include('/client_modal')
-                                                                        <button type="button" data-toggle="modal" data-target="#myModalCE{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
-                                                                        <button type="button" data-toggle="modal" data-target="#myModalCD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
+                                                                        @include('vehicule/modal')
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalVE{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalVD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
                                                                     </td>
-                                                                    <!--td><div class="row col-lg-12">
-                                                                        <a href="{{ route('clients.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('clients.destroy', $val->id)}}" method="post" style="">
-                                                                          @csrf
-                                                                          @method('DELETE')
-                                                                          <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
-                                                                        </form>
-                                                                      </div>
-                                                                    </td-->
                                                                 </tr>
                                                             @endforeach
-
                                                         </tbody>
                                                     </table>
                                                 </div>

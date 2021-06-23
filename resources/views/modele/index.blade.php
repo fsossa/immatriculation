@@ -8,10 +8,10 @@
 
                         <header class="page-header">
                             <div class="container-fluid">
-                                <h2 class="no-margin-bottom">Vehicule</h2>
+                                <h2 class="no-margin-bottom">Modele</h2>
                             </div>
                             <div style="margin-left: 80%; ">
-                                <a href="{{ route('vehicules.create')}}" class="btn btn-outline-primary">Ajouter un vehicule</a>
+                                <a href="{{ route('modeles.create')}}" class="btn btn-outline-primary">Ajouter un modele</a>
                             </div>
                         </header>
                         @if(session()->get('success'))
@@ -32,7 +32,7 @@
                                             </div>
 
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Liste des véhicules immatriculés</h3>
+                                                <h3 class="h4">Liste des modeles</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -40,39 +40,22 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nom</th>
-                                                                <th>Numéro de chasis</th>
-                                                                <th>Année de sortie</th>
-                                                                <th>Numéro de plaque</th>
-                                                                <th>Propriétaire</th>
-                                                                <th>Etape</th>
+                                                                <th>Marque</th>
+                                                                <th>Model</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($vehicules as $val)
+                                                            @foreach($modeles as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td><a href="{{ route('vehicules.show', $val->id) }}">{{$val->marque.' '.$val->model.' '.$val->annee_sortie}}</a></td>
-                                                                    <td>{{$val->num_chassis}}</td>
-                                                                    <td>{{$val->annee_sortie}}</td>
-                                                                    <td>{{$val->plaque}}</td>
-                                                                    <td>{{$val->client}}</td>
-                                                                    <td><label class="badge badge-primary">{{$val->titre}}</label></td>
+                                                                    <td>{{$val->marque}}</td>
+                                                                    <td>{{$val->model}}</td>
                                                                     <td>
-                                                                        @include('/vehicule_modal')
-                                                                        <button type="button" data-toggle="modal" data-target="#myModalVE{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
-                                                                        <button type="button" data-toggle="modal" data-target="#myModalVD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
+                                                                        @include('modele/modal')
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalME{{$val->id}}" class="btn btn-warning"><i class="fa fa-pencil"></i></button> &nbsp
+                                                                        <button type="button" data-toggle="modal" data-target="#myModalMD{{$val->id}}" class="btn btn-danger"><i class="fa fa-remove"></i></button> 
                                                                     </td>
-                                                                    <!--td><div class="row col-lg-12">
-                                                                        <a href="{{ route('vehicules.edit', $val->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> &nbsp &nbsp
-                                                                        <form action="{{ route('vehicules.destroy', $val->id)}}" method="post" style="">
-                                                                          @csrf
-                                                                          @method('DELETE')
-                                                                          <button class="btn btn-danger" type="submit"><i class="fa fa-remove"></i></button>
-                                                                        </form>
-                                                                      </div>
-                                                                    </td-->
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>

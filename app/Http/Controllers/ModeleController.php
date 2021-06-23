@@ -34,7 +34,7 @@ class ModeleController extends Controller
 
         $modeles = Modele::all();
         $actives = $active;
-        return view('modele_index', compact('modeles', 'actives'));
+        return view('modele.index', compact('modeles', 'actives'));
     }
 
     /**
@@ -52,7 +52,7 @@ class ModeleController extends Controller
         $active['role'] = '';
 
         $actives = $active;
-        return view('modele_create', compact('actives'));
+        return view('modele.create', compact('actives'));
     }
 
     /**
@@ -109,7 +109,7 @@ class ModeleController extends Controller
 
         $modele = Modele::findOrFail($id);
         $actives = $active;
-        return view('modele_edit', compact('modele', 'actives'));
+        return view('modele.edit', compact('modele', 'actives'));
     }
 
     /**

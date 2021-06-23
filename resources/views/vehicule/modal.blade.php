@@ -12,12 +12,6 @@
                                                                                         @csrf
                                                                                         @method('PATCH')
                                                                                         <div class="form-group row">
-                                                                                            <label class="col-sm-3 form-control-label">Nom</label>
-                                                                                            <div class="col-sm-9">
-                                                                                                <input type="text" name="nom" placeholder="Nom de la voiture" class="form-control form-control-success" value="{{ $val->nom }}" ><!--small class="form-text">Example help text that remains unchanged.</small-->
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group row">
                                                                                             <label class="col-sm-3 form-control-label">Numéro de chassis</label>
                                                                                             <div class="col-sm-9">
                                                                                                 <input type="text" name="num_chassis" placeholder="" class="form-control form-control-success" value="{{ $val->num_chassis }}" ><!--small class="form-text">Example help text that remains unchanged.</small-->

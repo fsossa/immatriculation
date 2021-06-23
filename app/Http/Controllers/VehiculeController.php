@@ -50,7 +50,7 @@ class VehiculeController extends Controller
         $modeles = Modele::all();
         $statuses = Status::all();
 
-        return view('vehicule_index', compact('vehicules', 'clients', 'modeles', 'statuses', 'actives'));
+        return view('vehicule.index', compact('vehicules', 'clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**
@@ -71,7 +71,7 @@ class VehiculeController extends Controller
         $clients = Client::all();
         $modeles = Modele::all();
         $statuses = Status::all();
-        return view('vehicule_create', compact('clients', 'modeles', 'statuses', 'actives'));
+        return view('vehicule.create', compact('clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**
@@ -84,7 +84,6 @@ class VehiculeController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'nom' => 'required|max:255',
             'num_chassis' => 'required|max:255',
             'plaque' => 'required',
             'annee_sortie' => 'required|min:4|max:4',
@@ -127,7 +126,7 @@ class VehiculeController extends Controller
             ->select('vehicules.*', 'clients.nom as c_nom', 'clients.prenoms', 'clients.id as c_id', 'clients.num_ci', 'clients.phone', 'clients.email', 'modeles.marque', 'modeles.model', 'statuses.titre', 'users.name as user')
             ->first();
 
-        return view('vehicule_show', compact('vehicule', 'actives'));
+        return view('vehicule.show', compact('vehicule', 'actives'));
     }
 
     /**
@@ -151,7 +150,7 @@ class VehiculeController extends Controller
         $modeles = Modele::all();
         $statuses = Status::all();
 
-        return view('vehicule_edit', compact('vehicule', 'clients', 'modeles', 'statuses', 'actives'));
+        return view('vehicule.edit', compact('vehicule', 'clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**
@@ -165,7 +164,6 @@ class VehiculeController extends Controller
     {
         //var_dump("expression"); exit();
         $validatedData = $request->validate([
-            'nom' => 'required|max:255',
             'num_chassis' => 'required|max:255',
             'plaque' => 'required',
             'annee_sortie' => 'required|min:4|max:4',

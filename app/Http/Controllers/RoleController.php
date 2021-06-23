@@ -43,7 +43,7 @@ class RoleController extends Controller
 
         $actives = $active;
         $roles = Role::all();
-        return view('role_index',compact('roles', 'actives'));
+        return view('role.index',compact('roles', 'actives'));
     }
     
     /**
@@ -62,7 +62,7 @@ class RoleController extends Controller
 
         $actives = $active;
         $permission = Permission::get();
-        return view('role_create',compact('permission', 'actives'));
+        return view('role.create',compact('permission', 'actives'));
     }
     
     /**
@@ -121,7 +121,7 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
     
-        return view('role_edit',compact('role','permission','rolePermissions', 'actives'));
+        return view('role.edit',compact('role','permission','rolePermissions', 'actives'));
     }
     
     /**

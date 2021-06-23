@@ -31,7 +31,7 @@ class UserController extends Controller
         $actives = $active;
         $users = User::all();
         $departements = Departement::all();
-        return view('user_index', compact('users', 'departements', 'actives'));
+        return view('user.index', compact('users', 'departements', 'actives'));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
         $actives = $active;
         $departements = Departement::all();
         $roles = Role::pluck('name','name')->all();
-        return view('user_create', compact('departements', 'roles', 'actives'));
+        return view('user.create', compact('departements', 'roles', 'actives'));
     }
 
     /**
@@ -135,7 +135,7 @@ class UserController extends Controller
         $userRole = $user->roles->pluck('name','name')->all();
         $departements = Departement::all();
 
-        return view('user_edit', compact('user', 'departements', 'roles', 'userRole', 'actives'));
+        return view('user.edit', compact('user', 'departements', 'roles', 'userRole', 'actives'));
     }
 
     /**

@@ -38,7 +38,7 @@ class ClientController extends Controller
         $clients = Client::all();
         $departements = Departement::all();
 
-        return view('client_index', compact('clients', 'departements', 'actives'));
+        return view('client.index', compact('clients', 'departements', 'actives'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ClientController extends Controller
 
         $departements = Departement::all();
         $actives = $active;
-        return view('client_create', compact('departements', 'actives'));
+        return view('client.create', compact('departements', 'actives'));
     }
 
     /**
@@ -123,7 +123,7 @@ class ClientController extends Controller
             ->orderBy('vehicules.id', 'desc')
             ->get();
 
-        return view('client_show', compact('client', 'client_vehicules', 'actives'));
+        return view('client.show', compact('client', 'client_vehicules', 'actives'));
     }
 
     /**
@@ -145,7 +145,7 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
         $departements = Departement::all();
 
-        return view('client_edit', compact('client', 'departements', 'actives'));
+        return view('client.edit', compact('client', 'departements', 'actives'));
     }
 
     /**
