@@ -141,17 +141,17 @@
 			            <div class="avatar"><img src="{{asset('img/avatar-1.jpg')}}" alt="..." class="img-fluid rounded-circle"></div>
 			            <div class="title">
 		              		<h1 class="h4">{{ Auth::user()->name }}</h1>
-		              		<p>Administrateur 1</p>
+		              		<p></p>
 		            	</div>
 		          	</div>
 		          	<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 		          	<ul class="list-unstyled">
-			            <li class="active"><a href="{{ route('home') }}"> <i class="icon-home"></i>Accueil </a></li>
-			            <li><a href="{{ route('vehicules.index') }}"> <i class="fa fa-car"></i>Véhicules </a></li>
-			            <li><a href="{{ route('clients.index') }}"> <i class="fa fa-users"></i>Clients </a></li>
-			            <li><a href="{{ route('modeles.index') }}"> <i class="fa fa-gears"></i>Modeles </a></li>
-		            	<li><a href="{{ route('users.index') }}"> <i class="fa fa-star"></i>Utilisateurs </a></li>
-		            	<li><a href="{{ route('roles.index') }}"> <i class="fa fa-universal-access"></i>Roles </a></li>
+			            <li class="{{$actives['accueil']}}"><a href="{{ route('home') }}"> <i class="icon-home"></i>Accueil </a></li>
+			            <li class="{{$actives['vehicule']}}"><a href="{{ route('vehicules.index') }}"> <i class="fa fa-car"></i>Véhicules </a></li>
+			            <li class="{{$actives['client']}}"><a href="{{ route('clients.index') }}"> <i class="fa fa-users"></i>Clients </a></li>
+			            <li class="{{$actives['modele']}}"><a href="{{ route('modeles.index') }}"> <i class="fa fa-gears"></i>Modeles </a></li>
+		            	<li class="{{$actives['user']}}"><a href="{{ route('users.index') }}"> <i class="fa fa-star"></i>Utilisateurs </a></li>
+		            	<li class="{{$actives['role']}}"><a href="{{ route('roles.index') }}"> <i class="fa fa-universal-access"></i>Roles </a></li>
 		          	</ul>
 		        </nav>
 		        <div class="content-inner">

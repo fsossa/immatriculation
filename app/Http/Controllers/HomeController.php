@@ -96,7 +96,15 @@ class HomeController extends Controller
             ->get();*/
 
         //dd($clients); exit();
-        return view('home', compact('stat', 'vehicules'));
+
+        $actives['accueil'] = 'active';
+        $actives['vehicule'] = '';
+        $actives['client'] = '';
+        $actives['modele'] = '';
+        $actives['user'] = '';
+        $actives['role'] = '';
+
+        return view('home', compact('stat', 'vehicules', 'actives'));
     }
 
     protected function concacT()

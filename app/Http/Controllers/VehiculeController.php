@@ -12,12 +12,15 @@ use DB;
 
 class VehiculeController extends Controller
 {
+   
     function __construct()
     {
-         $this->middleware('permission:vehicule-list|vehicule-create|vehicule-edit|vehicule-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:vehicule-create', ['only' => ['create','store']]);
-         $this->middleware('permission:vehicule-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:vehicule-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:vehicule-list|vehicule-create|vehicule-edit|vehicule-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:vehicule-create', ['only' => ['create','store']]);
+        $this->middleware('permission:vehicule-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:vehicule-delete', ['only' => ['destroy']]);
+
+        
     }
 
     /**
@@ -27,6 +30,14 @@ class VehiculeController extends Controller
      */
     public function index()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = 'active';
+        $active['client'] = '';
+        $active['user'] = '';
+        $active['modele'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $vehicules = DB::table('vehicules')
             ->join('clients','clients.id','=','vehicules.clients_id')
             ->join('modeles','modeles.id','=','vehicules.modeles_id')
@@ -39,7 +50,7 @@ class VehiculeController extends Controller
         $modeles = Modele::all();
         $statuses = Status::all();
 
-        return view('vehicule_index', compact('vehicules', 'clients', 'modeles', 'statuses'));
+        return view('vehicule_index', compact('vehicules', 'clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**
@@ -49,10 +60,18 @@ class VehiculeController extends Controller
      */
     public function create()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = 'active';
+        $active['client'] = '';
+        $active['user'] = '';
+        $active['modele'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $clients = Client::all();
         $modeles = Modele::all();
         $statuses = Status::all();
-        return view('vehicule_create', compact('clients', 'modeles', 'statuses'));
+        return view('vehicule_create', compact('clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**
@@ -91,16 +110,24 @@ class VehiculeController extends Controller
      */
     public function show($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = 'active';
+        $active['client'] = '';
+        $active['user'] = '';
+        $active['modele'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $vehicule = DB::table('vehicules')
             ->join('clients','clients.id','=','vehicules.clients_id')
             ->join('modeles','modeles.id','=','vehicules.modeles_id')
             ->join('statuses','statuses.id','=','vehicules.statuses_id')
+            ->join('users','users.id','=','vehicules.users_id')
             ->where('vehicules.id', '=', $id)
-            ->select('vehicules.*', 'clients.nom as client', 'modeles.marque', 'modeles.model', 'statuses.titre')
-            ->orderBy('vehicules.id', 'desc')
-            ->get();
+            ->select('vehicules.*', 'clients.nom as c_nom', 'clients.prenoms', 'clients.id as c_id', 'clients.num_ci', 'clients.phone', 'clients.email', 'modeles.marque', 'modeles.model', 'statuses.titre', 'users.name as user')
+            ->first();
 
-        return view('vehicule_show', compact('vehicule'));
+        return view('vehicule_show', compact('vehicule', 'actives'));
     }
 
     /**
@@ -111,12 +138,20 @@ class VehiculeController extends Controller
      */
     public function edit($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = 'active';
+        $active['client'] = '';
+        $active['user'] = '';
+        $active['modele'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $vehicule = Vehicule::findOrFail($id);
         $clients = Client::all();
         $modeles = Modele::all();
         $statuses = Status::all();
 
-        return view('vehicule_edit', compact('vehicule', 'clients', 'modeles', 'statuses'));
+        return view('vehicule_edit', compact('vehicule', 'clients', 'modeles', 'statuses', 'actives'));
     }
 
     /**

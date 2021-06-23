@@ -6,15 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class ClientController extends Controller
 {
+    
     function __construct()
     {
-         $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:client-create', ['only' => ['create','store']]);
-         $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:client-create', ['only' => ['create','store']]);
+        $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+
+        
     }
     /**
      * Display a listing of the resource.
@@ -23,10 +27,18 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = 'active';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $clients = Client::all();
         $departements = Departement::all();
 
-        return view('client_index', compact('clients', 'departements'));
+        return view('client_index', compact('clients', 'departements', 'actives'));
     }
 
     /**
@@ -36,9 +48,16 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $departements = Departement::all();
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = 'active';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = '';
 
-        return view('client_create', compact('departements'));
+        $departements = Departement::all();
+        $actives = $active;
+        return view('client_create', compact('departements', 'actives'));
     }
 
     /**
@@ -77,9 +96,34 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::findOrFail($id);
+        //$client = Client::findOrFail($id);
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = 'active';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = '';
 
-        return view('client_edit', compact('client'));
+        $actives = $active;
+        $client = DB::table('clients')
+            ->join('departements','clients.departements_id','=','departements.id')
+            ->join('users','clients.users_id','=','users.id')
+            ->where('clients.id', '=', $id)
+            ->select('clients.*', 'departements.nom as departement', 'users.name as creator')
+            ->orderBy('clients.id', 'desc')
+            ->limit(5)
+            ->first();
+        //dd($client); exit();
+
+        $client_vehicules = DB::table('vehicules')
+            ->join('modeles','modeles.id','=','vehicules.modeles_id')
+            ->join('statuses','statuses.id','=','vehicules.statuses_id')
+            ->where('vehicules.clients_id', '=', $id)
+            ->select('vehicules.*', 'modeles.marque', 'modeles.model', 'statuses.titre')
+            ->orderBy('vehicules.id', 'desc')
+            ->get();
+
+        return view('client_show', compact('client', 'client_vehicules', 'actives'));
     }
 
     /**
@@ -90,10 +134,18 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = 'active';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
         $client = Client::findOrFail($id);
         $departements = Departement::all();
 
-        return view('client_edit', compact('client', 'departements'));
+        return view('client_edit', compact('client', 'departements', 'actives'));
     }
 
     /**

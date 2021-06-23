@@ -52,7 +52,7 @@
                                                             @foreach($clients as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td>{{$val->nom.' '.$val->prenoms}}</td>
+                                                                    <td><a href="{{ route('clients.show', $val->id)}}">{{$val->nom.' '.$val->prenoms}}</a></td>
                                                                     <td>{{$val->date_naissance.'/'.$val->lieu_naissance}}</td>
                                                                     <td>{{$val->phone}}</td>
                                                                     <td>{{$val->email}}</td>

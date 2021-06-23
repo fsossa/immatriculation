@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </section>
-                        <section class="dashboard-header">
+                        <section class="dashboard-header no-padding-top">
                             <div class="container-fluid">
                                 <div class="row">
                                     <!-- Statistics -->
@@ -102,7 +102,7 @@
                             </div>
                           </section>
                                                
-                        <section class="tables">   
+                        <section class="tables no-padding-top">   
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -127,14 +127,14 @@
                                                                 <th>Chassis</th>
                                                                 <th>Plaque</th>
                                                                 <th>Propriétaire</th>
-                                                                <th>Date</th>
+                                                                <th>Date d'ajout</th>
                                                                 <th>Etape</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach($vehicules as $val)
                                                                 <tr>
-                                                                    <td>{{$val->marque.' '.$val->model.' '.$val->annee_sortie}}</td>
+                                                                    <td><a href="{{ route('vehicules.show', $val->id) }}">{{$val->marque.' '.$val->model.' '.$val->annee_sortie}}</a></td>
                                                                     <td>{{$val->num_chassis}}</td>
                                                                     <td>{{$val->plaque}}</td>
                                                                     <td>{{$val->client}}</td>

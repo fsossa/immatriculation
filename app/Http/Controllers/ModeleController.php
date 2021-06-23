@@ -7,12 +7,15 @@ use App\Models\Modele;
 
 class ModeleController extends Controller
 {
+    
     function __construct()
     {
-         $this->middleware('permission:modele-list|modele-create|modele-edit|modele-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:modele-create', ['only' => ['create','store']]);
-         $this->middleware('permission:modele-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:modele-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:modele-list|modele-create|modele-edit|modele-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:modele-create', ['only' => ['create','store']]);
+        $this->middleware('permission:modele-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:modele-delete', ['only' => ['destroy']]);
+
+        
     }
 
     /**
@@ -22,9 +25,16 @@ class ModeleController extends Controller
      */
     public function index()
     {
-        $modeles = Modele::all();
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = 'active';
+        $active['user'] = '';
+        $active['role'] = '';
 
-        return view('modele_index', compact('modeles'));
+        $modeles = Modele::all();
+        $actives = $active;
+        return view('modele_index', compact('modeles', 'actives'));
     }
 
     /**
@@ -34,7 +44,15 @@ class ModeleController extends Controller
      */
     public function create()
     {
-        return view('modele_create');
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = 'active';
+        $active['user'] = '';
+        $active['role'] = '';
+
+        $actives = $active;
+        return view('modele_create', compact('actives'));
     }
 
     /**
@@ -71,9 +89,7 @@ class ModeleController extends Controller
      */
     public function show($id)
     {
-        $modele = Modele::findOrFail($id);
-
-        return view('modele_edit', compact('modele'));
+        //
     }
 
     /**
@@ -84,9 +100,16 @@ class ModeleController extends Controller
      */
     public function edit($id)
     {
-        $modele = Modele::findOrFail($id);
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = 'active';
+        $active['user'] = '';
+        $active['role'] = '';
 
-        return view('modele_edit', compact('modele'));
+        $modele = Modele::findOrFail($id);
+        $actives = $active;
+        return view('modele_edit', compact('modele', 'actives'));
     }
 
     /**

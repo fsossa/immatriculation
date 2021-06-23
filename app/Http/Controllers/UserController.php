@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +21,17 @@ class UserController extends Controller
      */
     public function index()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = 'active';
+        $active['role'] = '';
+
+        $actives = $active;
         $users = User::all();
         $departements = Departement::all();
-        return view('user_index', compact('users', 'departements'));
+        return view('user_index', compact('users', 'departements', 'actives'));
     }
 
     /**
@@ -32,9 +41,17 @@ class UserController extends Controller
      */
     public function create()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = 'active';
+        $active['role'] = '';
+
+        $actives = $active;
         $departements = Departement::all();
         $roles = Role::pluck('name','name')->all();
-        return view('user_create', compact('departements', 'roles'));
+        return view('user_create', compact('departements', 'roles', 'actives'));
     }
 
     /**
@@ -85,8 +102,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = 'active';
+        $active['role'] = '';
+
+        $actives = $active;
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('users.show',compact('user', 'actives'));
     }
 
     /**
@@ -97,12 +122,20 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = 'active';
+        $active['role'] = '';
+
+        $actives = $active;
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
         $departements = Departement::all();
 
-        return view('user_edit', compact('user', 'departements', 'roles', 'userRole'));
+        return view('user_edit', compact('user', 'departements', 'roles', 'userRole', 'actives'));
     }
 
     /**

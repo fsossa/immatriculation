@@ -53,7 +53,7 @@
                                                             @foreach($vehicules as $val)
                                                                 <tr>
                                                                     <td>{{$val->id}}</td>
-                                                                    <td>{{$val->nom}}</td>
+                                                                    <td><a href="{{ route('vehicules.show', $val->id) }}">{{$val->marque.' '.$val->model.' '.$val->annee_sortie}}</a></td>
                                                                     <td>{{$val->num_chassis}}</td>
                                                                     <td>{{$val->annee_sortie}}</td>
                                                                     <td>{{$val->plaque}}</td>

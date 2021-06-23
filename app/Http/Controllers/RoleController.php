@@ -16,12 +16,15 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     function __construct()
     {
-         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:role-create', ['only' => ['create','store']]);
-         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+
+        
     }
     
     /**
@@ -31,8 +34,16 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = 'active';
+
+        $actives = $active;
         $roles = Role::all();
-        return view('role_index',compact('roles'));
+        return view('role_index',compact('roles', 'actives'));
     }
     
     /**
@@ -42,8 +53,16 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = 'active';
+
+        $actives = $active;
         $permission = Permission::get();
-        return view('role_create',compact('permission'));
+        return view('role_create',compact('permission', 'actives'));
     }
     
     /**
@@ -88,13 +107,21 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $active['accueil'] = '';
+        $active['vehicule'] = '';
+        $active['client'] = '';
+        $active['modele'] = '';
+        $active['user'] = '';
+        $active['role'] = 'active';
+
+        $actives = $active;
         $role = Role::find($id);
         $permission = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
     
-        return view('role_edit',compact('role','permission','rolePermissions'));
+        return view('role_edit',compact('role','permission','rolePermissions', 'actives'));
     }
     
     /**

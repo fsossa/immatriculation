@@ -6,10 +6,10 @@
 
 						<header class="page-header">
 			        		<div class="container-fluid">
-			              		<h2 class="no-margin-bottom">Agent</h2>
+			              		<h2 class="no-margin-bottom">Utilisateur</h2>
 			            	</div>
 			            	<div style="margin-left: 80%; ">
-			            		<a href="{{ route('users.index') }}" class="btn btn-outline-primary">Listes des agents</a>
+			            		<a href="{{ route('users.index') }}" class="btn btn-outline-primary">Listes des utilisateurs</a>
 			            	</div>
 			          	</header>
 			          	@if ($errors->any())
@@ -34,7 +34,7 @@
 						                      	</div>
 						                    </div>
 						                    <div class="card-header d-flex align-items-center">
-						                      	<h3 class="h4">Ajouter un agent</h3>
+						                      	<h3 class="h4">Ajouter un utilisateur</h3>
 						                    </div>
 					                    	<div class="card-body">
 					                    	
